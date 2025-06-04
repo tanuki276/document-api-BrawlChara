@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BrawlStars Character API - ドキュメント</title>
+  <title>BrawlChara api - ドキュメント</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
@@ -46,6 +46,23 @@
       border-radius: 5px;
       overflow-x: auto;
       font-family: 'Consolas', 'Monaco', monospace;
+      position: relative;
+      margin-top: 1em;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      font-size: 0.9em;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .copy-btn.copied {
+      background-color: #28a745;
     }
     table {
       width: 100%;
@@ -90,18 +107,12 @@
   <div class="container">
     <h1><i class="fa-solid fa-puzzle-piece"></i> BrawlStars Character API - ドキュメント</h1>
 
-    ---
-
     <h2><i class="fa-solid fa-book"></i> エンドポイント：キャラクター情報取得</h2>
     <p><strong>GET</strong> <code>/api/character</code></p>
-
-    ---
 
     <h2><i class="fa-solid fa-lock"></i> 認証</h2>
     <p>このエンドポイントには <strong>トークンが必須</strong> です。<br>
     トークンは <a href="https://api-brawlstars-character.vercel.app" target="_blank">公式サイト</a> にて取得してください。</p>
-
-    ---
 
     <h2><i class="fa-solid fa-receipt"></i> パラメータ（Query）</h2>
     <table>
@@ -126,28 +137,25 @@
       </tbody>
     </table>
 
-    ---
-
     <h2><i class="fa-solid fa-download"></i> リクエスト例</h2>
-    <pre><code>GET /api/character?token=あなたのトークンを記載してください...&amp;lang=en Host: api-brawlstars-character.vercel.app</code></pre>
+    <pre><code>GET /api/character?token=あなたのトークンを記載してください...&amp;lang=en
+Host: api-brawlstars-character.vercel.app</code><button class="copy-btn">コピー</button></pre>
 
     <p>またはブラウザで：</p>
-    <pre><code>https://api-brawlstars-character.vercel.app/api/character?token=あなたのトークンを記載してください&amp;lang=en</code></pre>
-
-    ---
+    <pre><code>https://api-brawlstars-character.vercel.app/api/character?token=あなたのトークンを記載してください&amp;lang=en</code><button class="copy-btn">コピー</button></pre>
 
     <h2><i class="fa-solid fa-upload"></i> レスポンス形式（JSON）</h2>
     <pre><code>{
   "name": "キャラクター名",
   "rarity": "レア度",
   "role": "タイプ"
-}</code></pre>
+}</code><button class="copy-btn">コピー</button></pre>
     <div class="note">
       <p><i class="fa-solid fa-circle-exclamation"></i> rarity と role は指定した lang に翻訳された結果になります。</p>
     </div>
 
     <div class="error-example">
-      <p><i class="fa-solid fa-triangle-exclamation"></i> **エラーレスポンス例**</p>
+      <p><i class="fa-solid fa-triangle-exclamation"></i> <strong>エラーレスポンス例</strong></p>
       <table>
         <thead>
           <tr>
@@ -172,5 +180,21 @@
       </table>
     </div>
   </div>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const code = button.previousElementSibling.innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          button.textContent = '✅ コピーしました！';
+          button.classList.add('copied');
+          setTimeout(() => {
+            button.textContent = 'コピー';
+            button.classList.remove('copied');
+          }, 1500);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
