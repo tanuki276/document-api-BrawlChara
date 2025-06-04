@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrawlStars Character API - ドキュメント</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #0056b3;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      margin-top: 30px;
+    }
+    h1 {
+      font-size: 2em;
+    }
+    h2 {
+      font-size: 1.5em;
+    }
+    code {
+      background-color: #e9e9e9;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    pre {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .note {
+      background-color: #fff3cd;
+      border-left: 5px solid #ffc107;
+      padding: 10px 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+      color: #664d03;
+    }
+    .error-example {
+      background-color: #f8d7da;
+      border-left: 5px solid #dc3545;
+      padding: 10px 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fa-solid fa-puzzle-piece"></i> BrawlStars Character API - ドキュメント</h1>
+
+    ---
+
+    <h2><i class="fa-solid fa-book"></i> エンドポイント：キャラクター情報取得</h2>
+    <p><strong>GET</strong> <code>/api/character</code></p>
+
+    ---
+
+    <h2><i class="fa-solid fa-lock"></i> 認証</h2>
+    <p>このエンドポイントには <strong>トークンが必須</strong> です。<br>
+    トークンは <a href="https://api-brawlstars-character.vercel.app" target="_blank">公式サイト</a> にて取得してください。</p>
+
+    ---
+
+    <h2><i class="fa-solid fa-receipt"></i> パラメータ（Query）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>パラメータ</th>
+          <th>必須</th>
+          <th>説明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>token</code></td>
+          <td><i class="fa-solid fa-check"></i></td>
+          <td>認証用JWT。サイトで生成してください。</td>
+        </tr>
+        <tr>
+          <td><code>lang</code></td>
+          <td><i class="fa-solid fa-xmark"></i></td>
+          <td>翻訳対象言語（デフォルト: <code>ja</code>）<br>例: <code>en</code>, <code>zh</code>, <code>fr</code>など。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    ---
+
+    <h2><i class="fa-solid fa-download"></i> リクエスト例</h2>
+    <pre><code>GET /api/character?token=あなたのトークンを記載してください...&amp;lang=en Host: api-brawlstars-character.vercel.app</code></pre>
+
+    <p>またはブラウザで：</p>
+    <pre><code>https://api-brawlstars-character.vercel.app/api/character?token=あなたのトークンを記載してください&amp;lang=en</code></pre>
+
+    ---
+
+    <h2><i class="fa-solid fa-upload"></i> レスポンス形式（JSON）</h2>
+    <pre><code>{
+  "name": "キャラクター名",
+  "rarity": "レア度",
+  "role": "タイプ"
+}</code></pre>
+    <div class="note">
+      <p><i class="fa-solid fa-circle-exclamation"></i> rarity と role は指定した lang に翻訳された結果になります。</p>
+    </div>
+
+    <div class="error-example">
+      <p><i class="fa-solid fa-triangle-exclamation"></i> **エラーレスポンス例**</p>
+      <table>
+        <thead>
+          <tr>
+            <th>ステータス</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>400</code></td>
+            <td><code>{"error":"Token is required"}</code></td>
+          </tr>
+          <tr>
+            <td><code>401</code></td>
+            <td><code>{"error":"Invalid or expired token"}</code></td>
+          </tr>
+          <tr>
+            <td><code>500</code></td>
+            <td><code>{"error":"Internal Server Error"}</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
