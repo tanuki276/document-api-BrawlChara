@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BrawlChara API - ドキュメント</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
@@ -13,7 +13,6 @@
       background-color: #f9fafb;
       color: #222;
     }
-
     .container {
       max-width: 900px;
       margin: 0 auto;
@@ -22,14 +21,12 @@
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.07);
     }
-
     h1, h2 {
       color: #1e3a8a;
       border-bottom: 2px solid #e5e7eb;
       padding-bottom: 10px;
       margin-top: 30px;
     }
-
     code {
       background-color: #f3f4f6;
       padding: 4px 6px;
@@ -38,7 +35,6 @@
       font-size: 0.95em;
       color: #111827;
     }
-
     pre {
       background-color: #f3f4f6;
       color: #111827;
@@ -51,7 +47,6 @@
       margin-top: 1em;
       border: 1px solid #d1d5db;
     }
-
     .copy-btn {
       position: absolute;
       top: 10px;
@@ -65,42 +60,19 @@
       cursor: pointer;
       transition: background-color 0.2s ease;
     }
-
     .copy-btn:hover {
       background-color: #2563eb;
     }
-
     .copy-btn.copied {
       background-color: #10b981;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-      font-size: 0.95em;
-    }
-
-    th, td {
-      border: 1px solid #e5e7eb;
-      padding: 12px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f9fafb;
-      font-weight: bold;
-    }
-
     a {
       color: #2563eb;
       text-decoration: none;
     }
-
     a:hover {
       text-decoration: underline;
     }
-
     .note {
       background-color: #fef9c3;
       border-left: 5px solid #facc15;
@@ -109,29 +81,21 @@
       border-radius: 6px;
       color: #92400e;
     }
-
-    .error-example {
-      background-color: #fee2e2;
-      border-left: 5px solid #f87171;
-      padding: 12px 18px;
-      margin: 20px 0;
-      border-radius: 6px;
-      color: #7f1d1d;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1><i class="fa-solid fa-puzzle-piece"></i> BrawlStars Character API - ドキュメント</h1>
 
-    <h2><i class="fa-solid fa-book"></i> エンドポイント：キャラクター情報取得</h2>
-    <p><strong>GET</strong> <code>/api/character</code></p>
+    <h2><i class="fa-solid fa-book"></i> エンドポイント：ランダムキャラクター取得</h2>
+    <p><strong>GET</strong> <code>/api/character/random</code></p>
 
     <h2><i class="fa-solid fa-lock"></i> 認証</h2>
     <p>このエンドポイントには <strong>トークンが必須</strong> です。<br>
-      トークンは <a href="https://api-brawlstars-character.vercel.app" target="_blank">公式サイト</a> にて取得してください。</p>
+      トークンは <a href="https://api-brawlstars-character.vercel.app" target="_blank" rel="noopener noreferrer">公式サイト</a> にて取得してください。</p>
 
-    <h2><i class="fa-solid fa-receipt"></i> パラメータ（Query）</h2>
+    <h2><i class="fa-solid fa-receipt"></i> パラメータ</h2>
+    <p>このAPIはトークン以外のパラメータは不要です。</p>
     <table>
       <thead>
         <tr>
@@ -143,51 +107,25 @@
       </thead>
       <tbody>
         <tr><td><code>token</code></td><td>✅</td><td>認証用JWT</td><td><code>eyJhbGciOiJIUzI1Ni...</code></td></tr>
-        <tr><td><code>lang</code></td><td>❌</td><td>翻訳言語指定</td><td><code>en</code></td></tr>
-        <tr><td><code>rarity</code></td><td>❌</td><td>キャラのレア度で絞り込み</td><td><code>レジェンド</code></td></tr>
-        <tr><td><code>role</code></td><td>❌</td><td>キャラのロールで絞り込み</td><td><code>アサシン</code></td></tr>
-        <tr><td><code>count</code></td><td>❌</td><td>取得するキャラ数</td><td><code>3</code></td></tr>
-        <tr><td><code>blockedIds</code></td><td>❌</td><td>除外したいキャラID</td><td><code>char_001,char_005</code></td></tr>
       </tbody>
     </table>
 
-    <div class="note">
-      <p><i class="fa-solid fa-circle-info"></i> <strong>正確なキャラクターIDの確認方法:</strong></p>
-      <p>以下のファイルをダウンロードして確認できます。</p>
-      <a href="Character.txt" download="Character.txt">Character.txt をダウンロード</a>
-    </div>
-
     <h2><i class="fa-solid fa-download"></i> リクエスト例</h2>
-
-    <pre><code>GET /api/character?token=YOUR_TOKEN
+    <pre><code>GET /api/character/random?token=YOUR_TOKEN
 Host: api-brawlstars-character.vercel.app</code><button class="copy-btn">コピー</button></pre>
 
-    <pre><code>https://api-brawlstars-character.vercel.app/api/character?token=YOUR_TOKEN</code><button class="copy-btn">コピー</button></pre>
+    <pre><code>https://api-brawlstars-character.vercel.app/api/character/random?token=YOUR_TOKEN</code><button class="copy-btn">コピー</button></pre>
 
     <h2><i class="fa-solid fa-upload"></i> レスポンス形式</h2>
-    <p>単一キャラクター：</p>
+    <p>ランダムに取得した単一キャラクター情報：</p>
     <pre><code>{
   "name": "キャラクター名",
   "rarity": "レア度",
   "role": "タイプ"
 }</code><button class="copy-btn">コピー</button></pre>
 
-    <p>複数キャラクター：</p>
-    <pre><code>[
-  {
-    "name": "キャラ1",
-    "rarity": "レア1",
-    "role": "タイプ1"
-  },
-  {
-    "name": "キャラ2",
-    "rarity": "レア2",
-    "role": "タイプ2"
-  }
-]</code><button class="copy-btn">コピー</button></pre>
-
     <div class="note">
-      <strong>注意:</strong> rarity や role の指定には JSON ファイルにある正式名称を使ってください。
+      <strong>注意:</strong> トークンは必ず有効なものを使用してください。
     </div>
   </div>
 
